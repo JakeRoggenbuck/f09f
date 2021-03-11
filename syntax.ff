@@ -1,0 +1,58 @@
+
+
+~ Include ~
+include standio
+
+~ Byte ~
+byte name = 10000000
+~ Byte array ~
+byte[] name
+byte name = [10000000, 10000001]
+
+
+~ Char ~
+char letter = 'A'
+~ Char array ~
+char[] letter
+char letter = ['A', 'B', 'C']
+
+
+~ Int ~
+int number = 4
+
+
+~ Prec ~
+prec percent = 3.4
+
+
+~ Ptr ~
+ptr = 0x494949
+
+
+~ Function ~
+function foo takes (int age, int height) returns string {
+	return(age ^ height)
+}
+
+~ Return function ~
+return(4)
+
+~ Entry controlled loop ~
+while () is True {
+	~ Looped code ~
+}
+
+~ Exit controlled loop ~
+do {
+	~ Looped code ~
+} while () is still True
+
+~ For loop ~
+loop for item in array {
+	~ Looped code ~
+}
+
+~ Modifiers ~
+static byte name = 10101010
+static char letter = 'A'
+static ptr = 0x494949
