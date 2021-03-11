@@ -1,5 +1,3 @@
-
-
 ~ Include ~
 include standio
 
@@ -26,11 +24,17 @@ prec percent = 3.4
 
 
 ~ Ptr ~
-ptr = 0x494949
+ptr my_variable = 0x494949
+
+~ String ~
+string name = "Jake"
+
+~ Bool ~
+isRunning = True
 
 
 ~ Function ~
-function foo takes (int age, int height) returns string {
+function foo (int age, int height) -> string {
 	return(age ^ height)
 }
 
@@ -38,14 +42,14 @@ function foo takes (int age, int height) returns string {
 return(4)
 
 ~ Entry controlled loop ~
-while () is True {
+while () {
 	~ Looped code ~
 }
 
 ~ Exit controlled loop ~
 do {
 	~ Looped code ~
-} while () is still True
+} while still ()
 
 ~ For loop ~
 loop for item in array {
