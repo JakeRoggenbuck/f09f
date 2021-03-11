@@ -1,0 +1,3 @@
+function foo (int age, int height) returns string {
+    return(age ^ height)
+}

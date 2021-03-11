@@ -1,3 +1,8 @@
+#ifndef TOKEN_H
+#define TOKEN_H
+
+#include <iostream>
+
 enum Token {
 	INCLUDE,
 	BYTE,
@@ -10,6 +15,7 @@ enum Token {
 	FALSE,
 	STRING,
 	FUNCTION,
+	RETURNS,
 	RETURN,
 	WHILE,
 	STILL,
@@ -24,3 +30,5 @@ enum Token {
 	RIGHT_BRACKET,
 	LEFT_BRACKET,
 };
+
+#endif

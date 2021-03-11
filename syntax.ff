@@ -34,7 +34,7 @@ isRunning = True
 
 
 ~ Function ~
-function foo (int age, int height) -> string {
+function foo (int age, int height) returns string {
 	return(age ^ height)
 }
 
