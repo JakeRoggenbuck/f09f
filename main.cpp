@@ -1,16 +1,22 @@
 #include <iostream>
-#include "token.h"
 #include <fstream>
 #include <vector>
 
+#include "token.h"
+#include "lexer.h"
 
-std::vector <int> tokens;
 
-void tokenize(std::string part) {
+Lexer::Lexer() {
+	std::vector <int> tokens;
+}
+
+bool Lexer::doesCharacterBeginToken(char character, char theCharacterComingBefore) { return 0; }
+
+void Lexer::tokenize(std::string part) {
 	std::cout << part << std::endl;
 }
 
-void parser(std::string filename) {
+void Lexer::lex(std::string filename) {
 	std::ifstream file;
 	file.open (filename);
 	if (!file.is_open()) return;
@@ -24,8 +30,10 @@ void parser(std::string filename) {
 }
 
 int main(int argc, char *argv[]) {
-	if (argc == 1) {
-		parser("test.ff");
+	Lexer lexer;
+
+	if (argc >= 2) {
+		lexer.lex(argv[1]);
 	} else {
 		std::cout << "No filepath specified" << std::endl;
 	}
