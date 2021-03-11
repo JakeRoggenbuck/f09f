@@ -6,16 +6,21 @@
 
 std::vector <int> tokens;
 
-void tokenize(char part) {
+void tokenize(std::string part) {
 	std::cout << part << std::endl;
 }
 
 void parser(std::string filename) {
+	std::ifstream file;
+	file.open (filename);
+	if (!file.is_open()) return;
+
+	std::string part;
 	// Read each word in the file
-	// That will be the part
-	char* part;
-	// Give the part to tokenize
-	tokenize(part);
+	while (file >> part) {
+		// Give the part to tokenize
+		tokenize(part);
+	}
 }
 
 int main(int argc, char *argv[]) {
