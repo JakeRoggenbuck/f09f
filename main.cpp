@@ -17,15 +17,10 @@ void Lexer::tokenize(std::string part) {
 }
 
 void Lexer::lex(std::string filename) {
-	std::ifstream file;
-	file.open (filename);
-	if (!file.is_open()) return;
-
-	std::string part;
-	// Read each word in the file
-	while (file >> part) {
-		// Give the part to tokenize
-		tokenize(part);
+	char ch;
+	std::fstream fin(filename, std::fstream::in);
+	while (fin >> std::noskipws >> ch) {
+		tokenize(ch);
 	}
 }
 
