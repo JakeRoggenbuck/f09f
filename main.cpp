@@ -8,28 +8,50 @@
 
 Lexer::Lexer() { }
 
-bool Lexer::doesCharacterBeginToken(char character, char theCharacterComingBefore) { return 0; }
+bool Lexer::doesCharacterEndToken(char character, char theCharacterComingBefore) {
+	if (character == '{' || character == '}') { return 1; }
+	else if (character == '[' || character == ']') { return 1; }
+	else if (character == '(' || character == ')') { return 1; }
+	else if (character == '+' || character == '-') { return 1; }
+	else if (character == '*' || character == '/') { return 1; }
+	else if (character == '^') { return 1; }
+	else { return 0; }
+}
 
-void Lexer::tokenize(std::string part) {
+void Lexer::tokenize(char* part) {
+	std::cout << part << std::endl;
 }
 
 void Lexer::lex(std::string filename) {
 	std::fstream file(filename, std::ios::in);
 
-    file.seekg(start, std::ios::beg);
+	file.seekg(start, std::ios::beg);
+ 
+	char buffer[36];
+	file.read(buffer, 35);
      
-    // Read the next 5 characters from the file into a buffer
-    char A[20];
-    file.read(A, 19);
-     
-    // End the buffer with a null terminating character
-    A[19] = 0;
-     
-    // Output the contents read from the file and close it 
-	std::cout << "Start:" << A << std::endl;
+	// End the buffer with a null terminating character
+	buffer[35] = 0;
+	int index = 0;
+	// Set the first character
+	char currentChar = buffer[0];
+	char lastChar;
+	bool isEndOfToken = false;
+	while (currentChar != 0 && !isEndOfToken) {
+		// Remebers the character from the last iteration
+		lastChar = buffer[index-1];
+		// Get new character
+		currentChar = buffer[index];
+		isEndOfToken = Lexer::doesCharacterEndToken(currentChar, lastChar);
+		index++;
+	}
+	std::cout << index << std::endl;
 
-    file.close();
-	start += 19;
+	char* tokenChars = malloc(index * sizeof(char));
+	memcpy(tokenChars, &(buffer[2]), 2);
+
+	file.close();
+	start += index;
 }
 
 int main(int argc, char *argv[]) {

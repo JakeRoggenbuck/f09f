@@ -8,8 +8,8 @@
 class Lexer {
     public:
 		int start = 0;
-		bool doesCharacterBeginToken(char character, char theCharacterComingBefore);
-		void tokenize(std::string part);
+		bool doesCharacterEndToken(char character, char theCharacterComingBefore);
+		void tokenize(char* part);
 		void lex(std::string filename);
         Lexer();
 };
