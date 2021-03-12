@@ -6,10 +6,8 @@
 #include <fstream>
 
 class Lexer {
-    private:
-		std::vector <int> tokens;
-
     public:
+		int start = 0;
 		bool doesCharacterBeginToken(char character, char theCharacterComingBefore);
 		void tokenize(std::string part);
 		void lex(std::string filename);
