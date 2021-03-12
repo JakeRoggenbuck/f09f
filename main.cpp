@@ -15,10 +15,12 @@ bool Lexer::doesCharacterEndToken(char character, char theCharacterComingBefore)
 	else if (character == '+' || character == '-') { return 1; }
 	else if (character == '*' || character == '/') { return 1; }
 	else if (character == '^') { return 1; }
+	else if (character == ',') { return 1; }
+	else if (character == ' ') { return 1; }
 	else { return 0; }
 }
 
-void Lexer::tokenize(char* part) {
+void Lexer::tokenize(std::string part) {
 	std::cout << part << std::endl;
 }
 
@@ -45,10 +47,8 @@ void Lexer::lex(std::string filename) {
 		isEndOfToken = Lexer::doesCharacterEndToken(currentChar, lastChar);
 		index++;
 	}
-	std::cout << index << std::endl;
-
-	char* tokenChars = malloc(index * sizeof(char));
-	memcpy(tokenChars, &(buffer[2]), 2);
+	std::string str(buffer, index);
+	tokenize(str);
 
 	file.close();
 	start += index;
@@ -58,7 +58,9 @@ int main(int argc, char *argv[]) {
 	Lexer lexer;
 
 	if (argc >= 2) {
-		lexer.lex(argv[1]);
+		for (int i = 0; i < 30; i++) {
+			lexer.lex(argv[1]);
+		}
 	} else {
 		std::cout << "No filepath specified" << std::endl;
 	}
