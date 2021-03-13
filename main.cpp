@@ -25,21 +25,85 @@ bool Lexer::doesCharacterEndToken(char lastChar, char currentChar, char nextChar
 	else if (currentChar == ',' || nextChar == ',') { return 1; }
 	else if (currentChar == ' ' || nextChar == ' ') { return 1; }
 	else if (currentChar == '^' || nextChar == '^') { return 1; }
+	else if (currentChar == '\n' || nextChar == '\n') { return 1; }
 	else { return 0; }
 }
 
-void Lexer::tokenize(std::string part) {
-	std::cout << part << std::endl;
+int Lexer::tokenize(std::string part) {
+	int token;
+
+	if (part == "include") {
+		token = INCLUDE;
+	} else if (part == "byte") {
+		token = BYTE;
+	} else if (part == "char") {
+		token = CHAR;
+	} else if (part == "int") {
+		token = INT;
+	} else if (part == "prec") {
+		token = PREC;
+	} else if (part == "bool") {
+		token = BOOL;
+	} else if (part == "true") {
+		token = TRUE;
+	} else if (part == "false") {
+		token = FALSE;
+	} else if (part == "string") {
+		token = STRING;
+	} else if (part == "function") {
+		token = FUNCTION;
+	} else if (part == "returns") {
+		token = RETURNS;
+	} else if (part == "return") {
+		token = RETURN;
+	} else if (part == "while") {
+		token = WHILE;
+	} else if (part == "still") {
+		token = STILL;
+	} else if (part == "do") {
+		token = DO;
+	} else if (part == "loop") {
+		token = LOOP;
+	} else if (part == "for") {
+		token = FOR;
+	} else if (part == "static") {
+		token = STATIC;
+	} else if (part == "(") {
+		token = LEFT_PAREN;
+	} else if (part == ")") {
+		token = RIGHT_PAREN;
+	} else if (part == "{") {
+		token = LEFT_BRACE;
+	} else if (part == "}") {
+		token = RIGHT_BRACE;
+	} else if (part == "[") {
+		token = LEFT_BRACKET;
+	} else if (part == "]") {
+		token = RIGHT_BRACKET;
+	} else if (part == "end") {
+		token = END;
+	} else if (part == " ") {
+		token = SPACE;
+	} else if (part == "\t") {
+		token = TAB;
+	} else if (part == "\n") {
+		token = NEWLINE;
+	} else {
+		token = NAME;
+	}
+
+	return token;
 }
 
-void Lexer::lex(std::fstream& file) {
+int Lexer::lex(std::fstream& file) {
 	file.seekg(start, std::ios::beg);
- 
-	char buffer[36];
-	file.read(buffer, 35);
-     
+
+	int buffSize = 36;
+	char buffer[buffSize];
+	file.read(buffer, buffSize-1);
+
 	// End the buffer with a null terminating character
-	buffer[35] = 0;
+	buffer[buffSize-1] = 0;
 
 	int index = 0;
 	// Set the first character
@@ -54,21 +118,28 @@ void Lexer::lex(std::fstream& file) {
 		// Get new character
 		currentChar = buffer[index];
 		isEndOfToken = Lexer::doesCharacterEndToken(lastChar, currentChar, nextChar);
+
 		index++;
 	}
 	std::string part(buffer, index);
 
-	if (part != " " && part != "\n") {
-		tokenize(part);
-	}
+	int token;
+
+	token = tokenize(part);
+	std::cout << token << ": " << part << std::endl;
 
 	start += index;
+
+	return token;
 }
 
 void Lexer::openBuffer(std::string filename) {
 	std::fstream file(filename, std::ios::in);
 
-	lex(file);
+	int token;
+	for (int i = 0; i < 40; i++) {
+		token = lex(file);
+	}
 
 	file.close();
 }
