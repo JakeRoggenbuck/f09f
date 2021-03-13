@@ -30,71 +30,75 @@ bool Lexer::doesCharacterEndToken(char lastChar, char currentChar, char nextChar
 }
 
 int Lexer::tokenize(std::string part) {
-	int token;
+	int tokenType;
 
 	if (part == "include") {
-		token = INCLUDE;
+		tokenType = INCLUDE;
 	} else if (part == "byte") {
-		token = BYTE;
+		tokenType = BYTE;
 	} else if (part == "char") {
-		token = CHAR;
+		tokenType = CHAR;
 	} else if (part == "int") {
-		token = INT;
+		tokenType = INT;
 	} else if (part == "prec") {
-		token = PREC;
+		tokenType = PREC;
 	} else if (part == "bool") {
-		token = BOOL;
+		tokenType = BOOL;
 	} else if (part == "true") {
-		token = TRUE;
+		tokenType = TRUE;
 	} else if (part == "false") {
-		token = FALSE;
+		tokenType = FALSE;
 	} else if (part == "string") {
-		token = STRING;
+		tokenType = STRING;
 	} else if (part == "function") {
-		token = FUNCTION;
+		tokenType = FUNCTION;
 	} else if (part == "returns") {
-		token = RETURNS;
+		tokenType = RETURNS;
 	} else if (part == "return") {
-		token = RETURN;
+		tokenType = RETURN;
 	} else if (part == "while") {
-		token = WHILE;
+		tokenType = WHILE;
 	} else if (part == "still") {
-		token = STILL;
+		tokenType = STILL;
 	} else if (part == "do") {
-		token = DO;
+		tokenType = DO;
 	} else if (part == "loop") {
-		token = LOOP;
+		tokenType = LOOP;
 	} else if (part == "for") {
-		token = FOR;
+		tokenType = FOR;
 	} else if (part == "static") {
-		token = STATIC;
+		tokenType = STATIC;
 	} else if (part == "(") {
-		token = LEFT_PAREN;
+		tokenType = LEFT_PAREN;
 	} else if (part == ")") {
-		token = RIGHT_PAREN;
+		tokenType = RIGHT_PAREN;
 	} else if (part == "{") {
-		token = LEFT_BRACE;
+		tokenType = LEFT_BRACE;
 	} else if (part == "}") {
-		token = RIGHT_BRACE;
+		tokenType = RIGHT_BRACE;
 	} else if (part == "[") {
-		token = LEFT_BRACKET;
+		tokenType = LEFT_BRACKET;
 	} else if (part == "]") {
-		token = RIGHT_BRACKET;
+		tokenType = RIGHT_BRACKET;
+	} else if (part == "=") {
+		tokenType = ASSIGNMENT;
 	} else if (part == "end") {
-		token = END;
+		tokenType = END;
 	} else if (part == " ") {
-		token = SPACE;
+		tokenType = SPACE;
 	} else if (part == "\t") {
-		token = TAB;
+		tokenType = TAB;
 	} else if (part == "\n") {
-		token = NEWLINE;
+		tokenType = NEWLINE;
 	} else if (part.find('~') != std::string::npos) {
-		token = COMMENT;
+		tokenType = COMMENT;
+	} else if (part.find('"') != std::string::npos) {
+		tokenType = LITERAL;
 	} else {
-		token = NAME;
+		tokenType = IDENTIFIER;
 	}
 
-	return token;
+	return tokenType;
 }
 
 int Lexer::lex(std::fstream& file) {
@@ -114,16 +118,11 @@ int Lexer::lex(std::fstream& file) {
 	char nextChar;
 	bool isEndOfToken = false;
 
-	// Skip comments
 	while (currentChar != 0 && !isEndOfToken) {
-		if (buffer[index] == '~') {
-			int comment_start = index;
-			index++;
-			do {
-				index++;
-				currentChar = buffer[index];
-			} while (currentChar != '~');
-		}
+
+		if (buffer[index] == '~') { index++; do { index++; } while (buffer[index] != '~'); }
+		if (buffer[index] == '"') { index++; do { index++; } while (buffer[index] != '"'); }
+
 		// Remembers the character from the last iteration
 		lastChar = buffer[index-1];
 		nextChar = buffer[index+1];
@@ -160,7 +159,7 @@ int main(int argc, char *argv[]) {
 	if (argc >= 2) {
 		while ( (token = lexer.lex(file)) != END ) {
 			// If they shouldn't be ignored
-			if (token < 27) {
+			if (token < 29) {
 				std::cout << token << std::endl;
 			}
 		}

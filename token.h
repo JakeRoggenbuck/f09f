@@ -3,8 +3,16 @@
 
 #include <iostream>
 
-enum Token {
+class Token {
+	public:
+		std::string part;
+		int type;
+        Token();
+};
+
+enum TokenType {
 	INCLUDE,
+	ASSIGNMENT,
 	BYTE,
 	CHAR,
 	INT,
@@ -30,12 +38,14 @@ enum Token {
 	LEFT_BRACKET,
 	RIGHT_BRACKET,
 	END,
-	NAME,
+	IDENTIFIER,
+	LITERAL,
 	// Ignore
 	SPACE,
 	TAB,
 	NEWLINE,
 	COMMENT,
+	NONE,
 };
 
 #endif
