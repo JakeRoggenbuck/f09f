@@ -85,7 +85,7 @@ int Lexer::tokenize(std::string part) {
 	} else if (part == " ") {
 		token = SPACE;
 	} else if (part == "\t") {
-		token = TAB;
+		token = TAB
 	} else if (part == "\n") {
 		token = NEWLINE;
 	} else {
@@ -121,34 +121,32 @@ int Lexer::lex(std::fstream& file) {
 
 		index++;
 	}
+	// Convert buffer to string up until index
 	std::string part(buffer, index);
 
+	// Get token from part
 	int token;
-
 	token = tokenize(part);
-	std::cout << token << ": " << part << std::endl;
+
+	if (mode == DEBUG) {
+		std::cout << token << ": " << part << std::endl;
+	}
 
 	start += index;
 
 	return token;
 }
 
-void Lexer::openBuffer(std::string filename) {
-	std::fstream file(filename, std::ios::in);
-
-	int token;
-	for (int i = 0; i < 40; i++) {
-		token = lex(file);
-	}
-
-	file.close();
-}
-
 int main(int argc, char *argv[]) {
+
+	std::fstream file(argv[1], std::ios::in);
 	Lexer lexer;
 
+	int token;
 	if (argc >= 2) {
-		lexer.openBuffer(argv[1]);
+		while ( (token = lexer.lex(file)) != END ) {
+			std::cout << token << std::endl;
+		}
 	} else {
 		std::cout << "No filepath specified" << std::endl;
 	}
