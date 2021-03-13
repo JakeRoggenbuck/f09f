@@ -32,9 +32,7 @@ void Lexer::tokenize(std::string part) {
 	std::cout << part << std::endl;
 }
 
-void Lexer::lex(std::string filename) {
-	std::fstream file(filename, std::ios::in);
-
+void Lexer::lex(std::fstream& file) {
 	file.seekg(start, std::ios::beg);
  
 	char buffer[36];
@@ -42,6 +40,7 @@ void Lexer::lex(std::string filename) {
      
 	// End the buffer with a null terminating character
 	buffer[35] = 0;
+
 	int index = 0;
 	// Set the first character
 	char currentChar = buffer[0];
@@ -63,17 +62,22 @@ void Lexer::lex(std::string filename) {
 		tokenize(part);
 	}
 
-	file.close();
 	start += index;
+}
+
+void Lexer::openBuffer(std::string filename) {
+	std::fstream file(filename, std::ios::in);
+
+	lex(file);
+
+	file.close();
 }
 
 int main(int argc, char *argv[]) {
 	Lexer lexer;
 
 	if (argc >= 2) {
-		for (int i = 0; i < 40; i++) {
-			lexer.lex(argv[1]);
-		}
+		lexer.openBuffer(argv[1]);
 	} else {
 		std::cout << "No filepath specified" << std::endl;
 	}
