@@ -3,6 +3,7 @@ include standio
 
 ~ Byte ~
 byte name = 10000000
+
 ~ Byte array ~
 byte[] name
 byte name = [10000000, 10000001]
@@ -10,6 +11,7 @@ byte name = [10000000, 10000001]
 
 ~ Char ~
 char letter = 'A'
+
 ~ Char array ~
 char[] letter
 char letter = ['A', 'B', 'C']
@@ -60,3 +62,5 @@ loop for item in array {
 static byte name = 10101010
 static char letter = 'A'
 static ptr = 0x494949
+
+
