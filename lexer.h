@@ -8,7 +8,7 @@
 class Lexer {
     public:
 		int start = 0;
-		bool doesCharacterEndToken(char character, char theCharacterComingBefore);
+		bool doesCharacterEndToken(char lastChar, char currentChar, char nextChar);
 		void tokenize(std::string part);
 		void lex(std::string filename);
         Lexer();

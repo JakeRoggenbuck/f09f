@@ -8,15 +8,23 @@
 
 Lexer::Lexer() { }
 
-bool Lexer::doesCharacterEndToken(char character, char theCharacterComingBefore) {
-	if (character == '{' || character == '}') { return 1; }
-	else if (character == '[' || character == ']') { return 1; }
-	else if (character == '(' || character == ')') { return 1; }
-	else if (character == '+' || character == '-') { return 1; }
-	else if (character == '*' || character == '/') { return 1; }
-	else if (character == '^') { return 1; }
-	else if (character == ',') { return 1; }
-	else if (character == ' ') { return 1; }
+
+bool Lexer::doesCharacterEndToken(char lastChar, char currentChar, char nextChar) {
+	if (currentChar == '{' || nextChar == '{') { return 1; }
+	else if (currentChar == '}' || nextChar == '}') { return 1; }
+
+	else if (currentChar == '[' || nextChar == '[') { return 1; }
+	else if (currentChar == ']' || nextChar == ']') { return 1; }
+
+	else if (currentChar == '(' || nextChar == '(') { return 1; }
+	else if (currentChar == ')' || nextChar == ')') { return 1; }
+
+	else if (currentChar == '+' || currentChar == '-') { return 1; }
+	else if (currentChar == '*' || currentChar == '/') { return 1; }
+
+	else if (currentChar == ',' || nextChar == ',') { return 1; }
+	else if (currentChar == ' ' || nextChar == ' ') { return 1; }
+	else if (currentChar == '^' || nextChar == '^') { return 1; }
 	else { return 0; }
 }
 
@@ -38,17 +46,22 @@ void Lexer::lex(std::string filename) {
 	// Set the first character
 	char currentChar = buffer[0];
 	char lastChar;
+	char nextChar;
 	bool isEndOfToken = false;
 	while (currentChar != 0 && !isEndOfToken) {
 		// Remebers the character from the last iteration
 		lastChar = buffer[index-1];
+		nextChar = buffer[index+1];
 		// Get new character
 		currentChar = buffer[index];
-		isEndOfToken = Lexer::doesCharacterEndToken(currentChar, lastChar);
+		isEndOfToken = Lexer::doesCharacterEndToken(lastChar, currentChar, nextChar);
 		index++;
 	}
-	std::string str(buffer, index);
-	tokenize(str);
+	std::string part(buffer, index);
+
+	if (part != " " && part != "\n") {
+		tokenize(part);
+	}
 
 	file.close();
 	start += index;
@@ -58,7 +71,7 @@ int main(int argc, char *argv[]) {
 	Lexer lexer;
 
 	if (argc >= 2) {
-		for (int i = 0; i < 30; i++) {
+		for (int i = 0; i < 40; i++) {
 			lexer.lex(argv[1]);
 		}
 	} else {
