@@ -85,9 +85,11 @@ int Lexer::tokenize(std::string part) {
 	} else if (part == " ") {
 		token = SPACE;
 	} else if (part == "\t") {
-		token = TAB
+		token = TAB;
 	} else if (part == "\n") {
 		token = NEWLINE;
+	} else if (part.find('~') != std::string::npos) {
+		token = COMMENT;
 	} else {
 		token = NAME;
 	}
@@ -111,8 +113,18 @@ int Lexer::lex(std::fstream& file) {
 	char lastChar;
 	char nextChar;
 	bool isEndOfToken = false;
+
+	// Skip comments
 	while (currentChar != 0 && !isEndOfToken) {
-		// Remebers the character from the last iteration
+		if (buffer[index] == '~') {
+			int comment_start = index;
+			index++;
+			do {
+				index++;
+				currentChar = buffer[index];
+			} while (currentChar != '~');
+		}
+		// Remembers the character from the last iteration
 		lastChar = buffer[index-1];
 		nextChar = buffer[index+1];
 		// Get new character
@@ -128,6 +140,7 @@ int Lexer::lex(std::fstream& file) {
 	int token;
 	token = tokenize(part);
 
+	// Print tokens in debug mode
 	if (mode == DEBUG) {
 		std::cout << token << ": " << part << std::endl;
 	}
@@ -141,11 +154,15 @@ int main(int argc, char *argv[]) {
 
 	std::fstream file(argv[1], std::ios::in);
 	Lexer lexer;
+	lexer.mode = NORMAL;
 
 	int token;
 	if (argc >= 2) {
 		while ( (token = lexer.lex(file)) != END ) {
-			std::cout << token << std::endl;
+			// If they shouldn't be ignored
+			if (token < 27) {
+				std::cout << token << std::endl;
+			}
 		}
 	} else {
 		std::cout << "No filepath specified" << std::endl;

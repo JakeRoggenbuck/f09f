@@ -30,10 +30,12 @@ enum Token {
 	LEFT_BRACKET,
 	RIGHT_BRACKET,
 	END,
+	NAME,
+	// Ignore
 	SPACE,
 	TAB,
 	NEWLINE,
-	NAME,
+	COMMENT,
 };
 
 #endif
