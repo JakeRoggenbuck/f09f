@@ -1,4 +1,5 @@
-# f09f - pronounced fonf is a simple statically typed language with simple but powerful syntax
+# f09f
+### pronounced fonf is a simple statically typed language with simple but powerful syntax
 
 #### Include
 ```c++
