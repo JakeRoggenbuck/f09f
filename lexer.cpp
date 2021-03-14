@@ -9,7 +9,7 @@
 Lexer::Lexer() { }
 
 
-bool Lexer::doesCharacterEndToken(char lastChar, char currentChar, char nextChar) {
+bool Lexer::doesCharacterEndToken(char currentChar, char nextChar) {
 	if (currentChar == '{' || nextChar == '{') { return 1; }
 	else if (currentChar == '}' || nextChar == '}') { return 1; }
 
@@ -101,7 +101,7 @@ int Lexer::tokenize(std::string part) {
 	return tokenType;
 }
 
-int Lexer::lex(std::fstream& file) {
+Token Lexer::lex(std::fstream& file) {
 	file.seekg(start, std::ios::beg);
 
 	int buffSize = 36;
@@ -114,7 +114,6 @@ int Lexer::lex(std::fstream& file) {
 	int index = 0;
 	// Set the first character
 	char currentChar = buffer[0];
-	char lastChar;
 	char nextChar;
 	bool isEndOfToken = false;
 
@@ -123,30 +122,22 @@ int Lexer::lex(std::fstream& file) {
 		if (buffer[index] == '~') { index++; do { index++; } while (buffer[index] != '~'); }
 		if (buffer[index] == '"') { index++; do { index++; } while (buffer[index] != '"'); }
 
-		// Remembers the character from the last iteration
-		lastChar = buffer[index-1];
 		nextChar = buffer[index+1];
 		// Get new character
 		currentChar = buffer[index];
-		isEndOfToken = Lexer::doesCharacterEndToken(lastChar, currentChar, nextChar);
+		isEndOfToken = Lexer::doesCharacterEndToken(currentChar, nextChar);
 
 		index++;
 	}
 	// Convert buffer to string up until index
 	std::string part(buffer, index);
 
-	// Get token from part
-	int token;
-	token = tokenize(part);
-
-	// Print tokens in debug mode
-	if (mode == DEBUG) {
-		std::cout << token << ": " << part << std::endl;
-	}
+	currentToken.type = tokenize(part);
+	currentToken.part = part;
 
 	start += index;
 
-	return token;
+	return currentToken;
 }
 
 int main(int argc, char *argv[]) {
@@ -155,12 +146,13 @@ int main(int argc, char *argv[]) {
 	Lexer lexer;
 	lexer.mode = NORMAL;
 
-	int token;
 	if (argc >= 2) {
-		while ( (token = lexer.lex(file)) != END ) {
+		while (true) {
+			Token token = lexer.lex(file);
+			if (token.type == END) { break; }
 			// If they shouldn't be ignored
-			if (token < 29) {
-				std::cout << token << std::endl;
+			if (lexer.mode == DEBUG && token.type < 29) {
+				std::cout << token.type << ":\t" << token.part << std::endl;
 			}
 		}
 	} else {

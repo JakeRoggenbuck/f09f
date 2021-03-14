@@ -3,12 +3,7 @@
 
 #include <iostream>
 
-class Token {
-	public:
-		std::string part;
-		int type;
-        Token();
-};
+struct Token { std::string part; int type; };
 
 enum TokenType {
 	INCLUDE,
