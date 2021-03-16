@@ -17,17 +17,14 @@ void usage() {
 int main(int argc, char** argv) {
 	if (argc == 1) { F09F_ERROR("Expected [file] argument"); }
 
-	f09f_args_t ff_args;
+	f09f_args_t ff_args = {0, NULL, 0, 0};
 
-	ff_args.help, ff_args.info, ff_args.tokens = false, false, false;
-
-	std::vector<std::string> args(argv, argv+argc);
-	for (size_t i = 1; i < args.size(); ++i) {
-		if (args[i] == "-v") {
+	for (int i = 1; i < argc; ++i) {
+		if (std::string(argv[i]) == "-v") {
 			if (!ff_args.info) { ff_args.info = true; }
-		} else if (args[i] == "--help") {
+		} else if (std::string(argv[i]) == "--help") {
 			if (!ff_args.help) { ff_args.help = true; }
-		} else if (args[i] == "-t") {
+		} else if (std::string(argv[i]) == "-t") {
 			if (!ff_args.tokens) { ff_args.tokens = true; }
 		}
 	}
