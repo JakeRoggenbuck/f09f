@@ -62,5 +62,3 @@ loop for item in array {
 static byte name = 10101010
 static char letter = 'A'
 static ptr = 0x494949
-
-
