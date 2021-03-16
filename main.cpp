@@ -18,7 +18,8 @@ int main(int argc, char** argv) {
 	if (argc == 1) { F09F_ERROR("Expected [file] argument"); }
 
 	f09f_args_t ff_args;
-	ff_args.file = argv[1];
+
+	ff_args.help, ff_args.info, ff_args.tokens = false, false, false;
 
 	std::vector<std::string> args(argv, argv+argc);
 	for (size_t i = 1; i < args.size(); ++i) {
@@ -35,9 +36,9 @@ int main(int argc, char** argv) {
 		if (ff_args.info) {
 			std::cout << "Version: 0.1" << std::endl;
 		} else if (ff_args.help) { usage(); }
-	}
 
-	if (argc >= 2) {
+	} else if (argc >= 2) {
+		ff_args.file = argv[1];
 		std::fstream file(ff_args.file, std::ios::in);
 		Lexer lexer;
 
