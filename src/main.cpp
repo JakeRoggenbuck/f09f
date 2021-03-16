@@ -1,6 +1,7 @@
 #include <iostream>
 
 #include "lexer.cpp"
+#include "parser.cpp"
 #include "utils.h"
 #include "f09f_args.h"
 
@@ -29,30 +30,17 @@ int main(int argc, char** argv) {
 		}
 	}
 
+	ff_args.file = argv[1];
+
 	if (argc == 2) {
 		if (ff_args.info) {
 			std::cout << "Version: 0.1" << std::endl;
 		} else if (ff_args.help) { usage(); }
 
 	} else if (argc >= 2) {
-		ff_args.file = argv[1];
-		std::fstream file(ff_args.file, std::ios::in);
-		Lexer lexer;
+		Parser parser;
+		parser.parse(ff_args);
 
-		if (ff_args.tokens == true) {
-			lexer.mode = DEBUG;
-		} else {
-			lexer.mode = NORMAL;
-		}
-
-		while (true) {
-			Token token = lexer.lex(file);
-			if (token.type == END) { break; }
-			// If they shouldn't be ignored
-			if (lexer.mode == DEBUG && token.type < 29) {
-				std::cout << token.type << ":\t" << token.part << std::endl;
-			}
-		}
 	}
 	return 0;
 }
