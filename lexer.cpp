@@ -139,24 +139,3 @@ Token Lexer::lex(std::fstream& file) {
 
 	return currentToken;
 }
-
-int main(int argc, char *argv[]) {
-
-	std::fstream file(argv[1], std::ios::in);
-	Lexer lexer;
-	lexer.mode = NORMAL;
-
-	if (argc >= 2) {
-		while (true) {
-			Token token = lexer.lex(file);
-			if (token.type == END) { break; }
-			// If they shouldn't be ignored
-			if (lexer.mode == DEBUG && token.type < 29) {
-				std::cout << token.type << ":\t" << token.part << std::endl;
-			}
-		}
-	} else {
-		std::cout << "No filepath specified" << std::endl;
-	}
-	return 0;
-}
