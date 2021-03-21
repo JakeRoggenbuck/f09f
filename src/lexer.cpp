@@ -157,6 +157,8 @@ Token Lexer::lex(std::fstream& file) {
 	char nextChar;
 	bool isEndOfToken = false;
 
+	if (currentChar == '\n') { line++; charInLine = 0; }
+
 	while (currentChar != 0 && !isEndOfToken) {
 
 		if (buffer[index] == '~') { index++; do { index++; } while (buffer[index] != '~'); }
@@ -174,7 +176,10 @@ Token Lexer::lex(std::fstream& file) {
 
 	currentToken.type = tokenize(part);
 	currentToken.part = part;
+	currentToken.location = charInLine;
+	currentToken.line = line;
 
+	charInLine += index;
 	start += index;
 
 	return currentToken;

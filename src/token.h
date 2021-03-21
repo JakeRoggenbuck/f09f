@@ -3,7 +3,7 @@
 
 #include <iostream>
 
-struct Token { std::string part; int type; };
+struct Token { std::string part; int type; int location; int line; };
 
 enum TokenType {
 	INCLUDE,

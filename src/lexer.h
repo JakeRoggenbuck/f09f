@@ -12,6 +12,8 @@ class Lexer {
 	public:
 		Token currentToken;
 		int start = 0;
+		int line = 1;
+		int charInLine = 0;
 		int mode = NORMAL;
 		bool doesCharacterEndToken(char currentChar, char nextChar);
 		int tokenize(std::string part);

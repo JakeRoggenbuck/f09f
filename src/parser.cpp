@@ -4,6 +4,9 @@
 #include "f09f_args.h"
 
 
+Node::Node() { }
+
+
 Parser::Parser() { }
 
 int Parser::parse(f09f_args_t ff_args) {
@@ -24,7 +27,8 @@ int Parser::parse(f09f_args_t ff_args) {
 
 		// If they shouldn't be ignored
 		if (lexer.mode == DEBUG && token.type < 29) {
-			std::cout << token.type << ":\t" << token.part << std::endl;
+			std::cout << token.line << ":" << token.location << "\t"
+			<< token.type << ":\t" << token.part << std::endl;
 		}
 
 	}
