@@ -35,6 +35,10 @@ enum TokenType {
 	END,
 	IDENTIFIER,
 	LITERAL,
+	DOT,
+	COMMA,
+	COLON,
+	SEMICOLON,
 	// Ignore
 	SPACE,
 	TAB,

@@ -1,6 +1,7 @@
 #include <iostream>
 #include <fstream>
 #include <vector>
+#include <cstring>
 
 #include "token.h"
 #include "lexer.h"
@@ -9,96 +10,135 @@
 Lexer::Lexer() { }
 
 
-bool Lexer::doesCharacterEndToken(char currentChar, char nextChar) {
-	if (currentChar == '{' || nextChar == '{') { return 1; }
-	else if (currentChar == '}' || nextChar == '}') { return 1; }
-
-	else if (currentChar == '[' || nextChar == '[') { return 1; }
-	else if (currentChar == ']' || nextChar == ']') { return 1; }
-
-	else if (currentChar == '(' || nextChar == '(') { return 1; }
-	else if (currentChar == ')' || nextChar == ')') { return 1; }
-
-	else if (currentChar == '+' || currentChar == '-') { return 1; }
-	else if (currentChar == '*' || currentChar == '/') { return 1; }
-
-	else if (currentChar == ',' || nextChar == ',') { return 1; }
-	else if (currentChar == ' ' || nextChar == ' ') { return 1; }
-	else if (currentChar == '^' || nextChar == '^') { return 1; }
-	else if (currentChar == '\n' || nextChar == '\n') { return 1; }
-	else { return 0; }
+bool isSingleCharToken(char character) {
+	switch (character) {
+		case '{':
+		case '}':
+		case '[':
+		case ']':
+		case '(':
+		case ')':
+		case '.':
+		case ',':
+		case ':':
+		case ';':
+			return true;
+		default:
+			return false;
+	}
 }
 
-int Lexer::tokenize(std::string part) {
-	int tokenType;
 
-	if (part == "include") {
-		tokenType = INCLUDE;
-	} else if (part == "byte") {
-		tokenType = BYTE;
-	} else if (part == "char") {
-		tokenType = CHAR;
-	} else if (part == "int") {
-		tokenType = INT;
-	} else if (part == "prec") {
-		tokenType = PREC;
-	} else if (part == "bool") {
-		tokenType = BOOL;
-	} else if (part == "true") {
-		tokenType = TRUE;
-	} else if (part == "false") {
-		tokenType = FALSE;
-	} else if (part == "string") {
-		tokenType = STRING;
-	} else if (part == "function") {
-		tokenType = FUNCTION;
-	} else if (part == "returns") {
-		tokenType = RETURNS;
-	} else if (part == "return") {
-		tokenType = RETURN;
-	} else if (part == "while") {
-		tokenType = WHILE;
-	} else if (part == "still") {
-		tokenType = STILL;
-	} else if (part == "do") {
-		tokenType = DO;
-	} else if (part == "loop") {
-		tokenType = LOOP;
-	} else if (part == "for") {
-		tokenType = FOR;
-	} else if (part == "static") {
-		tokenType = STATIC;
-	} else if (part == "(") {
-		tokenType = LEFT_PAREN;
-	} else if (part == ")") {
-		tokenType = RIGHT_PAREN;
-	} else if (part == "{") {
-		tokenType = LEFT_BRACE;
-	} else if (part == "}") {
-		tokenType = RIGHT_BRACE;
-	} else if (part == "[") {
-		tokenType = LEFT_BRACKET;
-	} else if (part == "]") {
-		tokenType = RIGHT_BRACKET;
-	} else if (part == "=") {
-		tokenType = ASSIGNMENT;
-	} else if (part == "end") {
-		tokenType = END;
-	} else if (part == " ") {
-		tokenType = SPACE;
-	} else if (part == "\t") {
-		tokenType = TAB;
-	} else if (part == "\n") {
-		tokenType = NEWLINE;
-	} else if (part.find('~') != std::string::npos) {
-		tokenType = COMMENT;
-	} else if (part.find('"') != std::string::npos) {
-		tokenType = LITERAL;
-	} else {
-		tokenType = IDENTIFIER;
+bool isOperator(char character) {
+	switch (character) {
+		case '+':
+		case '-':
+		case '*':
+		case '/':
+		case '^':
+		case '>':
+		case '<':
+			return true;
+		default:
+			return false;
 	}
+}
 
-	return tokenType;
+
+bool isWhitespace(char character) {
+	switch (character) {
+		case '\t':
+		case ' ':
+		case '\n':
+			return true;
+		default:
+			return false;
+	}
+}
+
+
+bool Lexer::doesCharacterEndToken(char currentChar, char nextChar) {
+	if (isSingleCharToken(currentChar) || isSingleCharToken(nextChar)) { return true; }
+	else if (isOperator(currentChar) || isOperator(nextChar)) { return true; }
+	else if (isWhitespace(currentChar) || isWhitespace(nextChar)) { return true; }
+	else { return false; }
+}
+
+
+int Lexer::tokenize(std::string part) {
+	if (part == "{") {
+		return LEFT_BRACE;
+	} else if (part == "}") {
+		return RIGHT_BRACE;
+	} else if (part == "[") {
+		return LEFT_BRACKET;
+	} else if (part == "]") {
+		return RIGHT_BRACKET;
+	} else if (part == "(") {
+		return LEFT_PAREN;
+	} else if (part == ")") {
+		return RIGHT_PAREN;
+	} else if (part == ".") {
+		return DOT;
+	} else if (part == ",") {
+		return COMMA;
+	} else if (part == ":") {
+		return COLON;
+	} else if (part == ";") {
+		return SEMICOLON;
+	} else if (part == "=") {
+		return ASSIGNMENT;
+	} else if (part == "\t") {
+		return TAB;
+	} else if (part == " ") {
+		return SPACE;
+	} else if (part == "\n") {
+		return NEWLINE;
+	} else if (part == "include") {
+		return INCLUDE;
+	} else if (part == "byte") {
+		return BYTE;
+	} else if (part == "char") {
+		return CHAR;
+	} else if (part == "int") {
+		return INT;
+	} else if (part == "prec") {
+		return PREC;
+	} else if (part == "bool") {
+		return BOOL;
+	} else if (part == "true") {
+		return TRUE;
+	} else if (part == "false") {
+		return FALSE;
+	} else if (part == "string") {
+		return STRING;
+	} else if (part == "function") {
+		return FUNCTION;
+	} else if (part == "returns") {
+		return RETURNS;
+	} else if (part == "return") {
+		return RETURN;
+	} else if (part == "while") {
+		return WHILE;
+	} else if (part == "still") {
+		return STILL;
+	} else if (part == "do") {
+		return DO;
+	} else if (part == "loop") {
+		return LOOP;
+	} else if (part == "for") {
+		return FOR;
+	} else if (part == "static") {
+		return STATIC;
+	} else if (part == "end") {
+		return END;
+	} else if (part.find('~') != std::string::npos) {
+		return COMMENT;
+	} else if (part.find('"') != std::string::npos) {
+		return LITERAL;
+	} else {
+		return IDENTIFIER;
+	}
 }
 
 Token Lexer::lex(std::fstream& file) {
@@ -129,7 +169,7 @@ Token Lexer::lex(std::fstream& file) {
 
 		index++;
 	}
-	// Convert buffer to string up until index
+
 	std::string part(buffer, index);
 
 	currentToken.type = tokenize(part);
