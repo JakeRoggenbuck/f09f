@@ -6,7 +6,6 @@
 
 Node::Node() { }
 
-
 Parser::Parser() { }
 
 int Parser::parse(f09f_args_t ff_args) {
@@ -15,9 +14,9 @@ int Parser::parse(f09f_args_t ff_args) {
 	Lexer lexer;
 
 	if (ff_args.tokens == true) {
-		lexer.mode = DEBUG;
+		mode = DEBUG;
 	} else {
-		lexer.mode = NORMAL;
+		mode = NORMAL;
 	}
 
 	while (true) {
@@ -26,7 +25,7 @@ int Parser::parse(f09f_args_t ff_args) {
 		if (token.type == END) { break; }
 
 		// If they shouldn't be ignored
-		if (lexer.mode == DEBUG && token.type < 29) {
+		if (mode == DEBUG && token.type < 29) {
 			std::cout << token.line << ":" << token.location << "\t"
 			<< token.type << ":\t" << token.part << std::endl;
 		}

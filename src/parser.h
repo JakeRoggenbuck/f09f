@@ -4,6 +4,8 @@
 #include <iostream>
 #include "f09f_args.h"
 
+enum Mode {NORMAL, DEBUG};
+
 class Node {
 	public:
 		Node();
@@ -12,6 +14,7 @@ class Node {
 class Parser {
 	public:
 		int parse(f09f_args_t ff_args);
+		int mode = NORMAL;
 		Parser();
 };
 
