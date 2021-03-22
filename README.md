@@ -1,6 +1,8 @@
 # f09f
 ###  pronounced fonf; is a simple statically typed language with simple but powerful syntax
 
+<img src="https://github.com/JakeRoggenbuck/f09f/blob/main/f09f.png?raw=true" alt="f09f"/>
+
 #### Include
 ```c++
 include standio;
