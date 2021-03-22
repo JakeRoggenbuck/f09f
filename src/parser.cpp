@@ -25,7 +25,7 @@ int Parser::parse(f09f_args_t ff_args) {
 		if (token.type == END) { break; }
 
 		// If they shouldn't be ignored
-		if (mode == DEBUG && token.type < 29) {
+		if (mode == DEBUG && token.type < 34) {
 			std::cout << token.line << ":" << token.location << "\t"
 			<< token.type << ":\t" << token.part << std::endl;
 		}

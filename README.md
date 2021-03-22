@@ -11,7 +11,7 @@ include standio;
 byte name = 10000000;
 
 ```
-#### Byte
+#### Byte array
 ```c++
 byte[] name;
 byte name = [10000000, 10000001];
@@ -22,7 +22,7 @@ byte name = [10000000, 10000001];
 char letter = 'A';
 
 ```
-#### Char
+#### Char array
 ```c++
 char[] letter;
 char letter = ['A', 'B', 'C'];
@@ -33,9 +33,21 @@ char letter = ['A', 'B', 'C'];
 int number = 4;
 
 ```
+#### Int array
+```c++
+int[] numbers;
+int numbers = [2, 5, 4];
+
+```
 #### Prec
 ```c++
 prec percent = 3.4;
+
+```
+#### Prec array
+```c++
+int[] precise_numbers;
+int precise_numbers = [3.14, 2.71828, 4.222];
 
 ```
 #### Ptr
@@ -51,6 +63,33 @@ string name = "Jake";
 #### Bool
 ```c++
 isRunning = True;
+
+```
+#### If
+```c++
+if (num > 0) {
+	~ do thing ~
+}
+
+```
+#### Else if
+```c++
+if (name == "Jake") {
+	~ do thing ~
+} else {
+	~ do other things ~
+}
+
+```
+#### If
+```c++
+if (val < physics.gravity) {
+	~ val is less than gravity ~
+} else if (val < physics.gravity / 2) {
+	~ val is less than half gravity ~
+} else {
+	~ val is greater than gravity ~
+}
 
 ```
 #### Function
@@ -99,11 +138,16 @@ class Lang (string name) {
 }
 
 ```
-#### Modifiers
+#### Static
 ```c++
 static byte name = 10101010;
 static char letter = 'A';
 static ptr = 0x494949;
+
+```
+#### Burn
+```c++
+burn string name = "Jake";
 
 ```
 

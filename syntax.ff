@@ -20,9 +20,17 @@ char letter = ['A', 'B', 'C'];
 ~ Int ~
 int number = 4;
 
+~ Int array ~
+int[] numbers;
+int numbers = [2, 5, 4];
+
 
 ~ Prec ~
 prec percent = 3.4;
+
+~ Prec array ~
+int[] precise_numbers;
+int precise_numbers = [3.14, 2.71828, 4.222];
 
 
 ~ Ptr ~
@@ -34,6 +42,27 @@ string name = "Jake";
 ~ Bool ~
 isRunning = True;
 
+
+~ If ~
+if (num > 0) {
+	~ do thing ~
+}
+
+~ Else ~
+if (name == "Jake") {
+	~ do thing ~
+} else {
+	~ do other things ~
+}
+
+~ If else ~
+if (val < physics.gravity) {
+	~ val is less than gravity ~
+} else if (val < physics.gravity / 2) {
+	~ val is less than half gravity ~
+} else {
+	~ val is greater than gravity ~
+}
 
 ~ Function ~
 function foo (int age, int height) returns string {
@@ -69,8 +98,11 @@ class Lang (string name) {
 	}
 }
 
-~ Modifiers ~
+~ Static ~
 static byte name = 10101010;
 static char letter = 'A';
 static ptr = 0x494949;
+
+~ Burn ~
+burn string name = "Jake";
 

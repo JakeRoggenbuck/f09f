@@ -35,6 +35,8 @@ enum TokenType {
 	SELF,
 	CLASS,
 	MAIN,
+	IF,
+	ELSE,
 	END,
 	IDENTIFIER,
 	LITERAL,
