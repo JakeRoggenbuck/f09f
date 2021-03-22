@@ -1,47 +1,47 @@
 ~ Include ~
-include standio
+include standio;
 
 ~ Byte ~
-byte name = 10000000
+byte name = 10000000;
 
 ~ Byte array ~
-byte[] name
-byte name = [10000000, 10000001]
+byte[] name;
+byte name = [10000000, 10000001];
 
 
 ~ Char ~
-char letter = 'A'
+char letter = 'A';
 
 ~ Char array ~
-char[] letter
-char letter = ['A', 'B', 'C']
+char[] letter;
+char letter = ['A', 'B', 'C'];
 
 
 ~ Int ~
-int number = 4
+int number = 4;
 
 
 ~ Prec ~
-prec percent = 3.4
+prec percent = 3.4;
 
 
 ~ Ptr ~
-ptr my_variable = 0x494949
+ptr my_variable = 0x494949;
 
 ~ String ~
-string name = "Jake"
+string name = "Jake";
 
 ~ Bool ~
-isRunning = True
+isRunning = True;
 
 
 ~ Function ~
 function foo (int age, int height) returns string {
-	return(age ^ height)
+	return(age ^ height);
 }
 
 ~ Return function ~
-return(4)
+return(4);
 
 ~ Entry controlled loop ~
 while () {
@@ -51,14 +51,25 @@ while () {
 ~ Exit controlled loop ~
 do {
 	~ Looped code ~
-} while still ()
+} while still ();
 
 ~ For loop ~
 loop for item in array {
 	~ Looped code ~
 }
 
+~ Classes ~
+class Lang (string name) {
+  	~ constructor ~
+	self.name = name;
+} : Main {
+	~ main body ~
+	function hello_lang () returns string {
+		return("Hello " + self.name());
+	}
+}
+
 ~ Modifiers ~
-static byte name = 10101010
-static char letter = 'A'
-static ptr = 0x494949
+static byte name = 10101010;
+static char letter = 'A';
+static ptr = 0x494949;

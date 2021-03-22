@@ -130,6 +130,12 @@ int Lexer::tokenize(std::string part) {
 		return FOR;
 	} else if (part == "static") {
 		return STATIC;
+	} else if (part == "self") {
+		return SELF;
+	} else if (part == "class") {
+		return CLASS;
+	} else if (part == "Main") {
+		return MAIN;
 	} else if (part == "end") {
 		return END;
 	} else if (part.find('~') != std::string::npos) {
