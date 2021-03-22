@@ -3,66 +3,66 @@
 
 #### Include
 ```c++
-include standio
+include standio;
 
 ```
 #### Byte
 ```c++
-byte name = 10000000
+byte name = 10000000;
 
 ```
 #### Byte
 ```c++
-byte[] name
-byte name = [10000000, 10000001]
+byte[] name;
+byte name = [10000000, 10000001];
 
 ```
 #### Char
 ```c++
-char letter = 'A'
+char letter = 'A';
 
 ```
 #### Char
 ```c++
-char[] letter
-char letter = ['A', 'B', 'C']
+char[] letter;
+char letter = ['A', 'B', 'C'];
 
 ```
 #### Int
 ```c++
-int number = 4
+int number = 4;
 
 ```
 #### Prec
 ```c++
-prec percent = 3.4
+prec percent = 3.4;
 
 ```
 #### Ptr
 ```c++
-ptr my_variable = 0x494949
+ptr my_variable = 0x494949;
 
 ```
 #### String
 ```c++
-string name = "Jake"
+string name = "Jake";
 
 ```
 #### Bool
 ```c++
-isRunning = True
+isRunning = True;
 
 ```
 #### Function
 ```c++
 function foo (int age, int height) returns string {
-	return(age ^ height)
+	return(age ^ height);
 }
 
 ```
 #### Return
 ```c++
-return(4)
+return(4);
 
 ```
 #### Entry
@@ -76,7 +76,7 @@ while () {
 ```c++
 do {
 	~ Looped code ~
-} while still ()
+} while still ();
 
 ```
 #### For
@@ -86,11 +86,24 @@ loop for item in array {
 }
 
 ```
+#### Classes
+```c++
+class Lang (string name) {
+  	~ constructor ~
+	self.name = name;
+} : Main {
+	~ main body ~
+	function hello_lang () returns string {
+		return("Hello " + self.name());
+	}
+}
+
+```
 #### Modifiers
 ```c++
-static byte name = 10101010
-static char letter = 'A'
-static ptr = 0x494949
+static byte name = 10101010;
+static char letter = 'A';
+static ptr = 0x494949;
 
 ```
 
