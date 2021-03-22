@@ -1,0 +1,16 @@
+function factorial (int n) returns int {
+	~ The factorial can't be found ~
+	if (n < 0) { raise("Negatives don't have a factorial"); }
+
+	int fact = 1;
+
+	~ Returns the factorial if n is zero ~
+	if (n == 0) { return(fact); }
+
+	~ Returns the value if n is greater than zero ~
+	while (n > 0) {
+		fact *= n;	
+		n--;
+	}
+	return(fact);
+}

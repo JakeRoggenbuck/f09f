@@ -1,0 +1,11 @@
+class array (array items) {
+	self.items = items;
+} : Main {
+	function _length () returns int {
+		int count = 0;
+		loop for item in self.items {
+			count++;
+		}
+		return(count);
+	}
+}

@@ -1,0 +1,13 @@
+class int (int number) {
+	self.number = number;
+} : Main {
+	function _list () returns array<int> {
+		int[] numbers;
+		int index = 0;
+		while (index < self.number) {
+			numbers.append(index)
+			index++;
+		}
+		return(numbers)
+	}
+}
