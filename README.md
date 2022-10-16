@@ -48,8 +48,8 @@ prec percent = 3.4;
 ```
 #### Prec array
 ```c++
-int[] precise_numbers;
-int precise_numbers = [3.14, 2.71828, 4.222];
+prec[] precise_numbers;
+prec precise_numbers = [3.14, 2.71828, 4.222];
 
 ```
 #### Ptr
